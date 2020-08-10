@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#3B3D7C"
+    android:layout_height="match_parent"
+    tools:context=".PassengerLocation">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="32dp"
+        android:elevation="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#4EB622">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:text="STATUS BOARD"
+                android:textColor="@android:color/white"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                />
+        </android.support.v7.widget.CardView>
+
+        <!--<com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/success"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            app:lottie_fileName="location.json"
+            android:layout_centerInParent="true"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />-->
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:text="Tracking Passenger"
+            android:layout_centerHorizontal="true"
+            style="@style/TextAppearance.AppCompat.Large"/>
+
+        <Button
+            android:id="@+id/exitapp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:text="Exit"
+            android:textColor="@color/white"
+            android:background="@drawable/button"/>
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

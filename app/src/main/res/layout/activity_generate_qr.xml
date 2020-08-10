@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3B3D7C"
+    tools:context=".GenerateQR">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="32dp"
+        android:elevation="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Passenger Details"
+                android:textColor="#fff"
+                android:layout_marginTop="20dp"
+                android:textSize="30dp"
+                android:background="#306F9E"
+                android:gravity="center"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/title"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Full Name"
+                    android:inputType="textCapWords" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+                <Spinner
+                    android:id="@+id/train_name"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/fromto"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="Train Name" />
+
+
+                <TextView
+                    android:id="@+id/train_no"
+                    android:layout_width="match_parent"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/train_name"
+                    android:textSize="20dp"
+                    android:hint="Train Number" />
+
+            <LinearLayout
+                android:id="@+id/place"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_below="@+id/textInputLayout"
+
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <Spinner
+                        android:id="@+id/st_name"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/name"
+                        android:layout_height="match_parent"
+                        android:hint="State" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <Spinner
+                        android:id="@+id/city_name"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/st_name"
+                        android:layout_height="match_parent"
+                        android:hint="City" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/fromto"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/place"
+                android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/from_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textPersonName"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:padding="12dp"
+                        android:layout_weight="1"
+                        android:hint="From" />
+
+                    <TextView
+                        android:id="@+id/to_id"
+                        android:padding="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:layout_weight="1"
+                        android:hint="To"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/journey_date"
+                android:hint="DD/MM/YYYY"
+                android:layout_width="match_parent"
+                android:focusable="false"
+                android:inputType="date"
+                android:layout_below="@+id/train_no"
+
+                android:layout_height="wrap_content"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout8"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/journey_date"
+                >
+                <EditText
+                    android:id="@+id/aadhaar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="Aadhaar No." />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout9"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/textInputLayout8"
+                >
+                <EditText
+                    android:id="@+id/mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="Mobile No." />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/fingerp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="scan fingerprint"
+                android:layout_below="@+id/textInputLayout9"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="#fff"/>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
