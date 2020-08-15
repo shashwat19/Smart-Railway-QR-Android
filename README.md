@@ -24,9 +24,10 @@ You can generate .apk files (either signed or unsigned) using Android Studio.
 
 ## Built With
 
-* [Firebase](http://firebase.google.com/) - The web framework used
+* [Firebase](http://firebase.google.com/) - For authentication
 * [Mantra MFS 100](https://download.mantratecapp.com/Forms/UserDownload) - SDK used for fingerprint scanner integration
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Zxing Library](https://github.com/zxing/zxing) - For QR code generation and scanning
+* [AWS EC2 and RDS](https://aws.amazon.com/) - For database management(RDS) and API server(EC2).
 
 
 
