@@ -28,6 +28,7 @@ You can generate .apk files (either signed or unsigned) using Android Studio.
 * [Mantra MFS 100](https://download.mantratecapp.com/Forms/UserDownload) - SDK used for fingerprint scanner integration
 * [Zxing Library](https://github.com/zxing/zxing) - For QR code generation and scanning
 * [AWS EC2 and RDS](https://aws.amazon.com/) - For database management (RDS) and API server (EC2).
+* [PayUmoney SDK](https://developer.payumoney.com/android/) - For payment gateway
 
 
 
