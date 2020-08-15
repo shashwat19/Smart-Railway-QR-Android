@@ -55,7 +55,7 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
     final static String on="Verified";//on
     final static String off="Thank you";//off
 
-    final static String on2="Non-verified";//on
+    final static String on2="Invalid";//on
     final static String off2="Thank you";//off
 
 
@@ -70,8 +70,6 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
     DatabaseReference reference;
 
     RequestQueue mRequestQueue;
-
-    String pnr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -305,7 +303,6 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
                         String b = f.get(j);
                         if (b.equals(Home.mTextView.getText().toString())) {
                             flag = 1;
-                            pnr=b;
                             break;
                         }
                     }
@@ -316,7 +313,7 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
                     AlertDialog.Builder ab=new AlertDialog.Builder(ScanQR.this);
                     ab.setTitle("Info");
                     ab.setMessage("Passenger Verified");
-                    ab.setPositiveButton("Start Journey", new DialogInterface.OnClickListener() {
+                    ab.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             try {
@@ -325,8 +322,7 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
-                            Intent j=new Intent(ScanQR.this,PassengerLocation.class);
-                            j.putExtra("pnr",pnr);
+                            Intent j=new Intent(ScanQR.this,Home.class);
                             startActivity(j);
                         }
                     });
