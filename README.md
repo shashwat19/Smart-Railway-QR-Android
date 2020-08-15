@@ -9,7 +9,7 @@ Clone this repository:
 git clone https://github.com/shashwat19/Smart-Railway-QR-Android.git
 ```
 
-Open in android studio
+Open in Android Studio
 
 ### Prerequisites
 
