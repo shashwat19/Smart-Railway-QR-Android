@@ -3,17 +3,6 @@ This app is part of my major project 'Smart Railway Ticket Booking and Authentic
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-You you need android studio to run this project:
-
-[Download Link](https://developer.android.com/studio)
-
-
-### Installing
-
 Clone this repository:
 
 ```
@@ -22,25 +11,23 @@ git clone https://github.com/shashwat19/Smart-Railway-QR-Android.git
 
 Open in android studio
 
+### Prerequisites
+
+You you need Android Studio to run this project:
+
+[Download Link](https://developer.android.com/studio)
+
+
 ## Deployment
 
-You can generate .apk files(either signed or unsigned) using Android Studio. 
+You can generate .apk files (either signed or unsigned) using Android Studio. 
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
+* [Firebase](http://firebase.google.com/) - The web framework used
+* [Mantra MFS 100](https://download.mantratecapp.com/Forms/UserDownload) - SDK used for fingerprint scanner integration
 * [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
 
 
