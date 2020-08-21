@@ -30,6 +30,11 @@ You can generate .apk files (either signed or unsigned) using Android Studio.
 * [AWS EC2 and RDS](https://aws.amazon.com/) - For database management (RDS) and API server (EC2).
 * [PayUmoney SDK](https://developer.payumoney.com/android/) - For payment gateway
 
+##Hardware Setup
+
+![](Res_files/images/1597577998495_IMG_20200816_165703.jpg)
+![](Res_files/images/IMG_20200816_165721.jpg)
+
 
 
 
