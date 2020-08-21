@@ -21,9 +21,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NoConnectionError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.payumoney.core.PayUmoneyConfig;
+import com.payumoney.core.PayUmoneySdkInitializer;
+import com.payumoney.core.entity.TransactionResponse;
+import com.payumoney.sdkui.ui.utils.PayUmoneyFlowManager;
+import com.payumoney.sdkui.ui.utils.ResultModel;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.Random;
 
 public class GenerateQR extends AppCompatActivity {
@@ -40,6 +57,8 @@ public class GenerateQR extends AppCompatActivity {
     ArrayList<String> cityname;
     ArrayList<String> tname;
     ArrayList<String> tno=new ArrayList<>();
+    Passenger passenger;
+    RequestQueue mRequestQueue;
 
 
     @Override
@@ -59,6 +78,7 @@ public class GenerateQR extends AppCompatActivity {
         dest=findViewById(R.id.to_id);
         tr_name=findViewById(R.id.train_name);
         tr_no=findViewById(R.id.train_no);
+        mRequestQueue=Volley.newRequestQueue(this);
 
 
         states.add("Select State");
@@ -183,7 +203,7 @@ public class GenerateQR extends AppCompatActivity {
                     Toast.makeText(GenerateQR.this, "Enter all details", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    final Passenger passenger = new Passenger();
+                     passenger = new Passenger();
 
                     int random = new Random().nextInt(100000000) + 999999999;
                     String pnr = String.valueOf(random).trim();
@@ -204,10 +224,12 @@ public class GenerateQR extends AppCompatActivity {
                     ab.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent it = new Intent(GenerateQR.this, ScanFingerprint.class);
+                            /*Intent it = new Intent(GenerateQR.this, ScanFingerprint.class);
                             it.putExtra("passenger", passenger);
                             startActivity(it);
-                            finish();
+                            finish();*/
+                            sc_fg.setEnabled(false);
+                            launchPaymentFlow();
                         }
                     });
                     ab.show();
@@ -230,4 +252,135 @@ public class GenerateQR extends AppCompatActivity {
             y=i;
         }
     };
+
+    private void launchPaymentFlow() {
+        PayUmoneyConfig payUmoneyConfig = PayUmoneyConfig.getInstance();
+        payUmoneyConfig.setPayUmoneyActivityTitle("Buy Ticket");
+        payUmoneyConfig.setDoneButtonText("Pay ₹ 590");
+
+        PayUmoneySdkInitializer.PaymentParam.Builder builder = new PayUmoneySdkInitializer.PaymentParam.Builder();
+        builder.setAmount("590")
+                .setTxnId(System.currentTimeMillis() + "")
+                .setPhone(mobile)
+                .setProductName("Train_Ticket")
+                .setFirstName(name)
+                .setEmail("deepak1961997@gmail.com")
+                .setsUrl(com.simplicitydev.smartrailwayqr.Constants.SURL)
+                .setfUrl(com.simplicitydev.smartrailwayqr.Constants.FURL)
+                .setUdf1("")
+                .setUdf2("")
+                .setUdf3("")
+                .setUdf4("")
+                .setUdf5("")
+                .setIsDebug(com.simplicitydev.smartrailwayqr.Constants.DEBUG)
+                .setKey(com.simplicitydev.smartrailwayqr.Constants.MERCHANT_KEY)
+                .setMerchantId(com.simplicitydev.smartrailwayqr.Constants.MERCHANT_ID);
+
+
+        try {
+            PayUmoneySdkInitializer.PaymentParam mPaymentParams = builder.build();
+            calculateHashInServer(mPaymentParams);
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            sc_fg.setEnabled(true);
+        }
+    }
+
+    private void calculateHashInServer(final PayUmoneySdkInitializer.PaymentParam mPaymentParams) {
+        com.simplicitydev.smartrailwayqr.ProgressUtils.showLoadingDialog(this);
+        String url = com.simplicitydev.smartrailwayqr.Constants.MONEY_HASH;
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        sc_fg.setEnabled(true);
+                        String merchantHash = "";
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            merchantHash = jsonObject.getString("result");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        com.simplicitydev.smartrailwayqr.ProgressUtils.cancelLoading();
+
+                        if (merchantHash.isEmpty() || merchantHash.equals("")) {
+                            Toast.makeText(GenerateQR.this, "Could not generate hash", Toast.LENGTH_SHORT).show();
+                        } else {
+                            mPaymentParams.setMerchantHash(merchantHash);
+                            PayUmoneyFlowManager.startPayUMoneyFlow(mPaymentParams, GenerateQR.this, R.style.PayUMoney, true);
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sc_fg.setEnabled(true);
+                        /*if (error instanceof NoConnectionError) {
+                            Toast.makeText(GenerateQR.this, "Connect to internet Volley", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(GenerateQR.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }*/
+                        Toast.makeText(GenerateQR.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        com.simplicitydev.smartrailwayqr.ProgressUtils.cancelLoading();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                return mPaymentParams.getParams();
+            }
+        };
+        mRequestQueue.add(request);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        sc_fg.setEnabled(true);
+
+        if (requestCode == PayUmoneyFlowManager.REQUEST_CODE_PAYMENT && resultCode == RESULT_OK && data != null) {
+
+            TransactionResponse transactionResponse = data.getParcelableExtra(PayUmoneyFlowManager.INTENT_EXTRA_TRANSACTION_RESPONSE);
+            ResultModel resultModel = data.getParcelableExtra(PayUmoneyFlowManager.ARG_RESULT);
+
+            if (transactionResponse != null && transactionResponse.getPayuResponse() != null) {
+
+                if (transactionResponse.getTransactionStatus().equals(TransactionResponse.TransactionStatus.SUCCESSFUL)) {
+                    showAlert("Payment Successful");
+                } else if (transactionResponse.getTransactionStatus().equals(TransactionResponse.TransactionStatus.CANCELLED)) {
+                    showAlert("Payment Cancelled");
+                } else if (transactionResponse.getTransactionStatus().equals(TransactionResponse.TransactionStatus.FAILED)) {
+                    showAlert("Payment Failed");
+                }
+
+            } else if (resultModel != null && resultModel.getError() != null) {
+                Toast.makeText(this, "Error check log", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Both objects are null", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == PayUmoneyFlowManager.REQUEST_CODE_PAYMENT && resultCode == RESULT_CANCELED) {
+            showAlert("Payment Cancelled");
+        }
+    }
+
+    private Double convertStringToDouble(String str) {
+        return Double.parseDouble(str);
+    }
+
+    private void showAlert(String msg){
+        android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(this);
+        alertDialog.setMessage(msg);
+        alertDialog.setCancelable(false);
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                 Intent it = new Intent(GenerateQR.this, ScanFingerprint.class);
+                            it.putExtra("passenger", passenger);
+                            startActivity(it);
+                            finish();
+            }
+        });
+        alertDialog.show();
+    }
 }

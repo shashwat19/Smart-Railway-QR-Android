@@ -42,5 +42,6 @@ dependencies {
     implementation 'me.dm7.barcodescanner:zxing:1.9'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.airbnb.android:lottie:2.0.0'
+    implementation 'com.payumoney.sdkui:plug-n-play:1.6.0'
     implementation files('libs/mantra.mfs100.jar')
 }

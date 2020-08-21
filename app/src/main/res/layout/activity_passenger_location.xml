@@ -40,14 +40,14 @@
                 />
         </android.support.v7.widget.CardView>
 
-        <!--<com.airbnb.lottie.LottieAnimationView
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/success"
             android:layout_width="5dp"
             android:layout_height="5dp"
             app:lottie_fileName="location.json"
             android:layout_centerInParent="true"
             app:lottie_loop="true"
-            app:lottie_autoPlay="true" />-->
+            app:lottie_autoPlay="true" />
 
         <TextView
             android:id="@+id/label"

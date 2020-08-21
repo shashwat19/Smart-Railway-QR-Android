@@ -59,6 +59,13 @@ public class Home extends AppCompatActivity {
         scan_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ActivityCompat.checkSelfPermission(Home.this, Manifest.permission.ACCESS_FINE_LOCATION)!=
+                        PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Home.this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(Home.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},0);
+                    return;
+                }
                 Intent i=new Intent(Home.this,Verify_Fingerprint.class);
                 startActivity(i);
             }

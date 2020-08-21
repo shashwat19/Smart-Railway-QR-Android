@@ -67,4 +67,22 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="ProgressAccent" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="PayUMoney" parent="PayumoneyAppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@android:color/holo_orange_dark</item>
+        <item name="colorButtonNormal">@android:color/holo_orange_dark</item>
+        <item name="alertDialogTheme">@style/AlertDialogStylePayUMoney</item>
+        <item name="actionMenuTextColor">@color/white</item>
+    </style>
+
+    <style name="AlertDialogStylePayUMoney" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/payumoney_text_color</item>
+    </style>
+
 </resources>
