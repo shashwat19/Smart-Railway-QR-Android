@@ -319,11 +319,6 @@ public class GenerateQR extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         sc_fg.setEnabled(true);
-                        /*if (error instanceof NoConnectionError) {
-                            Toast.makeText(GenerateQR.this, "Connect to internet Volley", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(GenerateQR.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                        }*/
                         Toast.makeText(GenerateQR.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                         com.simplicitydev.smartrailwayqr.ProgressUtils.cancelLoading();
                     }

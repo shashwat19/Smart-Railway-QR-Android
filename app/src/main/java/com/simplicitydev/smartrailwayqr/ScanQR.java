@@ -62,6 +62,7 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
     private ProgressDialog progressDialog;
 
     ZXingScannerView mScannerView;
+    String pnr;
 
     ArrayList<String> f;
     int flag=0,j;
@@ -303,6 +304,7 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
                         String b = f.get(j);
                         if (b.equals(Home.mTextView.getText().toString())) {
                             flag = 1;
+                            pnr=b;
                             break;
                         }
                     }
@@ -322,7 +324,8 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
-                            Intent j=new Intent(ScanQR.this,Home.class);
+                            Intent j=new Intent(ScanQR.this,PassengerLocation.class);
+                            j.putExtra("pnr",pnr);
                             startActivity(j);
                         }
                     });
